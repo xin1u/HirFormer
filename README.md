@@ -19,7 +19,7 @@ In order to easily replicate our competition results, you need to download the c
 
 The folder "ntire_24_sh_rem_final_test_inp" contains the test set of 75 shadow images for the competition. If you have additional test images, you can directly replace them.
 
-## Testing the shadow removal effectiveness of Reshaformer
+## Testing the shadow removal effectiveness of HirFormer
 
 You can easily reproduce our submission results by using the following command. Please make sure you have a PyTorch environment set up and navigate to the "LUMOS_shadowSubmit" directory. If your environment does not have the required Python modules installed, you will need to install them using pip.
 
