@@ -36,6 +36,19 @@ If you have another dataset of shadow images, feel free to replace "./ntire_24_s
 
 Note: It is important to ensure that both of these paths for modification end with "/" to avoid unnecessary errors.
 
+## Citation
+In case of use, please cite our publication:
+```
+@InProceedings{Lu_2024_CVPR,
+    author    = {Lu, Xin and Zhu, Yurui and Wang, Xi and Li, Dong and Xiao, Jie and Zhang, Yunpeng and Fu, Xueyang and Zha, Zheng-Jun},
+    title     = {HirFormer: Dynamic High Resolution Transformer for Large-Scale Image Shadow Removal},
+    booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) Workshops},
+    month     = {June},
+    year      = {2024},
+    pages     = {6513-6523}
+}
+```
+
 ## Contact
 
 Please feel free to contact us if there is any question(luxion@mail.ustc.edu.cn).
