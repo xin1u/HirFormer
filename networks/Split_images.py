@@ -97,7 +97,7 @@ def process_split_image_with_model_1(net,net_0,outputs,name,inputs): #image_path
     '''
     用 model处理sub_image(顺序前向传播)
     '''
-    if name in [('0012.png',),('0016.png',),('0019.png',),('0021.png',),('0031.png',),('0032.png',),('0057.png',),('0064.png',),('0069.png',)]:
+    if name:
         split_data, starts = splitimage(inputs, 352, 176)#352_4x4
         # print (name)
         for i, data in enumerate(split_data):             
@@ -108,16 +108,7 @@ def process_split_image_with_model_1(net,net_0,outputs,name,inputs): #image_path
         # 获得输出的大图            
         output = mergeimage(split_data, starts, 352, resolution=(1,3,1440,1920),is_mean=False)
         outputs = output
-    # split_data, starts = splitimage(inputs, crop_size=args.vit_img_size, overlap_size=args.overlap_size)#352_4x4
-    # for i, data in enumerate(split_data):             
-    #     # 获得输出的小图
-    #     output = net(data)
-    #     output = net_0(output)
-    #     split_data[i] = output
-    # # 获得输出的大图            
-    # output = mergeimage(split_data, starts, crop_size = args.vit_img_size, resolution=(B, C, H, W),is_mean=False)
-    # if name in ['0012.png','0016.png','0019.png','0021.png','0031.png','0032.png','0057.png','0064.png','0069.png']:
-    #     outputs = output
+
     return outputs
 
 def process_split_image_with_model_parallel(sub_images,model): #image_path, grid_config, model):
