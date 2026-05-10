@@ -1,6 +1,6 @@
 # HirFormer: Dynamic High Resolution Transformer for Large-Scale Image Shadow Removal
 
-## :trophy: Winner solution of the NTIRE 2024 Image Shadow Removal Challenge
+## :trophy: Winner solution of the CVPR 2024 Image Shadow Removal Challenge
 
 Our team (LUMOS) wins the [New Trends in Image Restoration and Enhancement workshop and associated challenges in conjunction with CVPR 2024](https://cvlai.net/ntire/2024/NTIRE2024awards_certificates.pdf)!
 
