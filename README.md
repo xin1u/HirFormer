@@ -7,7 +7,7 @@ Our team (LUMOS) wins the [New Trends in Image Restoration and Enhancement works
 This is the official PyTorch implementation of the paper:
 
 >**HirFormer: Dynamic High Resolution Transformer for Large-Scale Image Shadow Removal**<br>
->[Xin Lu](mailto:luxion@mail.ustc.edu.cn), Yurui Zhu, Xi Wang, Dong Li, Jie Xiao, Yunpeng Zhang, [Xueyang Fu](mailto:xyfu@ustc.edu.cn), Zheng-Jun Zha<br>
+>Xin Lu, Yurui Zhu, Xi Wang, Dong Li, Jie Xiao, Yunpeng Zhang, Xueyang Fu, Zheng-Jun Zha<br>
 >University of Science and Technology of China (USTC)<br>
 >CVPR Workshop 2024
 
@@ -53,7 +53,7 @@ HirFormer/
 ```
 
 
-## :surfer: Quick Inference
+## :surfer: Quick Start
 
 **Step 1: Download Checkpoints**
 
