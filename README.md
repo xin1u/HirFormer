@@ -1,13 +1,15 @@
 # HirFormer: Dynamic High Resolution Transformer for Large-Scale Image Shadow Removal
 
-## :trophy: Winner solution of the CVPR 2024 Image Shadow Removal Challenge
+<a href='https://openaccess.thecvf.com/content/CVPR2024W/NTIRE/papers/Lu_HirFormer_Dynamic_High_Resolution_Transformer_for_Large-Scale_Image_Shadow_Removal_CVPRW_2024_paper.pdf'><img src='https://img.shields.io/badge/Paper-CVPRW2024-b31b1b.svg'></a> &nbsp;&nbsp;
+
+## :trophy: Winner solution of the NTIRE 2024 Image Shadow Removal Challenge
 
 Our team (LUMOS) wins the [New Trends in Image Restoration and Enhancement workshop and associated challenges in conjunction with CVPR 2024](https://cvlai.net/ntire/2024/NTIRE2024awards_certificates.pdf)!
 
 This is the official PyTorch implementation of the paper:
 
 >**HirFormer: Dynamic High Resolution Transformer for Large-Scale Image Shadow Removal**<br>
->Xin Lu, Yurui Zhu, Xi Wang, Dong Li, Jie Xiao, Yunpeng Zhang, Xueyang Fu, Zheng-Jun Zha<br>
+>[Xin Lu](mailto:luxion@mail.ustc.edu.cn), Yurui Zhu, Xi Wang, Dong Li, Jie Xiao, Yunpeng Zhang, [Xueyang Fu](mailto:xyfu@ustc.edu.cn), Zheng-Jun Zha<br>
 >University of Science and Technology of China (USTC)<br>
 >CVPR Workshop 2024
 
@@ -53,7 +55,7 @@ HirFormer/
 ```
 
 
-## :surfer: Quick Start
+## :surfer: Quick Inference
 
 **Step 1: Download Checkpoints**
 
