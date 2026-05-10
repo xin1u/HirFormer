@@ -19,7 +19,7 @@ This is the official PyTorch implementation of the paper:
 ## :wrench: Dependencies and Installation
 
 ```bash
-git clone https://github.com/fanzh03/HirFormer.git
+git clone https://github.com/xin1u/HirFormer.git
 cd HirFormer
 pip install -r requirements.txt
 ```
