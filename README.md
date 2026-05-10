@@ -2,7 +2,7 @@
 
 <a href='https://openaccess.thecvf.com/content/CVPR2024W/NTIRE/papers/Lu_HirFormer_Dynamic_High_Resolution_Transformer_for_Large-Scale_Image_Shadow_Removal_CVPRW_2024_paper.pdf'><img src='https://img.shields.io/badge/Paper-CVPRW2024-b31b1b.svg'></a> &nbsp;&nbsp;
 
-## :trophy: Winner solution of the NTIRE 2024 Image Shadow Removal Challenge
+## :trophy: Winner solution of the CVPR 2024 Image Shadow Removal Challenge
 
 Our team (LUMOS) wins the [New Trends in Image Restoration and Enhancement workshop and associated challenges in conjunction with CVPR 2024](https://cvlai.net/ntire/2024/NTIRE2024awards_certificates.pdf)!
 
