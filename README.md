@@ -134,7 +134,7 @@ python train_shadow_vit_wNAF.py \
 If you find our repo useful for your research, please consider citing our paper:
 
 ```bibtex
-@InProceedings{Lu_2024_CVPR,
+@InProceedings{Lu_2024_CVPR_HirFormer,
     author    = {Lu, Xin and Zhu, Yurui and Wang, Xi and Li, Dong and Xiao, Jie and Zhang, Yunpeng and Fu, Xueyang and Zha, Zheng-Jun},
     title     = {HirFormer: Dynamic High Resolution Transformer for Large-Scale Image Shadow Removal},
     booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) Workshops},
