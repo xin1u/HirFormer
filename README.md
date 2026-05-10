@@ -1,44 +1,137 @@
 # HirFormer: Dynamic High Resolution Transformer for Large-Scale Image Shadow Removal
 
-## 🥇 Winner solution on the NTIRE 2024 Image Shadow Removal Challenge
+## :trophy: Winner solution of the NTIRE 2024 Image Shadow Removal Challenge
 
 Our team (LUMOS) wins the [New Trends in Image Restoration and Enhancement workshop and associated challenges in conjunction with CVPR 2024](https://cvlai.net/ntire/2024/NTIRE2024awards_certificates.pdf)!
 
-This is our transformer-based shadow removal model designed for the NTIRE 2024 Image Shadow Removal Challenge. It is specifically tailored for effectively removing shadows in large-scale images.
+This is the official PyTorch implementation of the paper:
 
-## Directory of the code package
+>**HirFormer: Dynamic High Resolution Transformer for Large-Scale Image Shadow Removal**<br>
+>[Xin Lu](mailto:luxion@mail.ustc.edu.cn), Yurui Zhu, Xi Wang, Dong Li, Jie Xiao, Yunpeng Zhang, [Xueyang Fu](mailto:xyfu@ustc.edu.cn), Zheng-Jun Zha<br>
+>University of Science and Technology of China (USTC)<br>
+>CVPR Workshop 2024
 
-In order to easily replicate our competition results, you need to download the compressed file "LUMOS_shadowSubmit.zip" that we have sent. Once extracted, the directory structure of the uncompressed files will be as follows:
+![pipeline](assets/pipeline.png)
 
-```powershell
---LUMOS_shadowSubmit
-    --ckpt
-    --datasets
-    --networks
-    --ntire_24_sh_rem_final_test_inp
-    --utils
-    --readme.md
-    --TEST.py
+
+## :wrench: Dependencies and Installation
+
+```bash
+git clone https://github.com/fanzh03/HirFormer.git
+cd HirFormer
+pip install -r requirements.txt
 ```
 
-The folder "ntire_24_sh_rem_final_test_inp" contains the test set of 75 shadow images for the competition. If you have additional test images, you can directly replace them.
+**Main dependencies:** PyTorch >= 1.10, torchvision, numpy, Pillow, tensorboard
 
-## Testing the shadow removal effectiveness of HirFormer
 
-You can easily reproduce our submission results by using the following command. Please make sure you have a PyTorch environment set up and navigate to the "LUMOS_shadowSubmit" directory. If your environment does not have the required Python modules installed, you will need to install them using pip.
+## :file_folder: Project Structure
 
-``` powershell
-python TEST.py  --eval_in_path  ./ntire_24_sh_rem_final_test_inp/  --result_path  ./running_result/
 ```
-The directory "./ntire_24_sh_rem_final_test_inp/" contains the images that need shadow removal. The directory "./running_result/" stores the resulting images after performing shadow removal. Additionally, the directory "./running_result/log_file/test.txt" contains the log file for printing program execution results, allowing you to monitor the progress at any time.
-
-If you have another dataset of shadow images, feel free to replace "./ntire_24_sh_rem_final_test_inp/" with the path to your shadow image directory, and modify "./running_result/" to the desired directory for storing the restored images.
-
-Note: It is important to ensure that both of these paths for modification end with "/" to avoid unnecessary errors.
-
-## Citation
-In case of use, please cite our publication:
+HirFormer/
+    ├── ckpt/                    # Pre-trained checkpoints
+    │   ├── best1.pth            # Stage 1: ViT model weights
+    │   └── best2.pth            # Stage 2: NAFNet refinement weights
+    ├── datasets/                # Dataset loading
+    │   └── datasets_pairs.py
+    ├── loss/                    # Loss functions
+    │   ├── losses.py            # Charbonnier, FFT, SSIM losses
+    │   ├── perceptual.py        # Perceptual loss
+    │   ├── contrastive_loss.py
+    │   └── ...
+    ├── networks/                # Model architectures
+    │   ├── MaeVit_arch.py       # Stage 1: Masked ViT encoder-decoder
+    │   ├── NAFNet_arch.py       # Stage 2: NAFNet refinement network
+    │   ├── Split_images.py      # Image splitting & merging (4x4 grid)
+    │   ├── Patch_embed.py       # Patch embedding module
+    │   └── ...
+    ├── utils/
+    │   ├── UTILS.py             # Metrics & utilities
+    │   └── UTILS1.py
+    ├── TEST.py                  # Inference script
+    └── train_shadow_vit_wNAF.py # Training script
 ```
+
+
+## :surfer: Quick Inference
+
+**Step 1: Download Checkpoints**
+
+Download the pre-trained checkpoints and place them in the `ckpt/` directory:
+- `best1.pth` — Stage 1 ViT model
+- `best2.pth` — Stage 2 NAFNet refinement model
+
+**Step 2: Run Testing**
+
+```bash
+python TEST.py \
+    --eval_in_path ./test_images/ \
+    --result_path ./results/
+```
+
+The shadow-free results will be saved in `./results/`. A log file at `./results/log_file/test.txt` records per-image PSNR/SSIM metrics.
+
+**Note:** Ensure both paths end with `/`.
+
+
+## :muscle: Train
+
+**Step 1: Prepare Data**
+
+Prepare training pairs (shadow / shadow-free images). We use the NTIRE 2024 and NTIRE 2023 shadow removal datasets.
+
+**Step 2: Three-stage Training**
+
+Our training follows a three-step strategy:
+
+1. **Stage 1** — Train ViT with Charbonnier + FFT loss:
+```bash
+python train_shadow_vit_wNAF.py \
+    --experiment_name stage1_vit \
+    --unified_path ./experiments/ \
+    --training_path_txt data/train_list.txt \
+    --eval_in_path /PATH/shadow_val_input/ \
+    --eval_gt_path /PATH/shadow_val_gt/ \
+    --BATCH_SIZE 3 \
+    --Crop_patches 1408 \
+    --learning_rate 0.0004 \
+    --EPOCH 600 \
+    --base_loss char \
+    --addition_loss fft
+```
+
+2. **Stage 2** — Freeze ViT, train NAFNet refinement:
+```bash
+python train_shadow_vit_wNAF.py \
+    --experiment_name stage2_nafnet \
+    --unified_path ./experiments/ \
+    --load_pre_model True \
+    --pre_model_0 ./experiments/stage1_vit/best_vit.pth \
+    --BATCH_SIZE 1 \
+    --Crop_patches 1408 \
+    --learning_rate 0.0004
+```
+
+3. **Stage 3** — Fine-tune both stages jointly with Charbonnier + SSIM loss:
+```bash
+python train_shadow_vit_wNAF.py \
+    --experiment_name stage3_finetune \
+    --unified_path ./experiments/ \
+    --load_pre_model True \
+    --pre_model_0 ./experiments/stage1_vit/best_vit.pth \
+    --pre_model_1 ./experiments/stage2_nafnet/best_nafnet.pth \
+    --base_loss char \
+    --addition_loss ssim \
+    --optim sgd \
+    --learning_rate 0.0002
+```
+
+
+## :book: Citation
+
+If you find our repo useful for your research, please consider citing our paper:
+
+```bibtex
 @InProceedings{Lu_2024_CVPR,
     author    = {Lu, Xin and Zhu, Yurui and Wang, Xi and Li, Dong and Xiao, Jie and Zhang, Yunpeng and Fu, Xueyang and Zha, Zheng-Jun},
     title     = {HirFormer: Dynamic High Resolution Transformer for Large-Scale Image Shadow Removal},
@@ -49,6 +142,7 @@ In case of use, please cite our publication:
 }
 ```
 
-## Contact
 
-Please feel free to contact us if there is any question(luxion@mail.ustc.edu.cn).
+## :postbox: Contact
+
+Please feel free to contact us if there is any question (luxion@mail.ustc.edu.cn).
